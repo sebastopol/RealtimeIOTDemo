@@ -1,0 +1,60 @@
+<div style="font-size:30px;" id="result"></div>
+<div id="line" style="float:left"></div>
+<div id="chartContainer" style="float:left">
+</div>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/dimple/dist/dimple.v2.1.2.min.js"></script>
+
+<script>
+/*Dimple Start*/
+		var format = [];
+		var svg = dimple.newSvg("#chartContainer", 590, 400);
+        var myChart = new dimple.chart(svg, format);
+        myChart.addCategoryAxis("x", "ticks");
+        myChart.addMeasureAxis("y", "data");
+        myChart.addSeries(null, dimple.plot.bar);
+        myChart.draw();
+		function generateGraph(data,i){
+		var temp={
+		data:Number(data),
+		ticks:i.toString()
+		};
+		format.push(temp);
+		console.log(format);
+		myChart.data=format;
+		myChart.draw();
+}
+/*Dimple Ends*/
+/*Dimple Start*/
+		var svg = dimple.newSvg("#line", 590, 400);
+        var myChart1 = new dimple.chart(svg, format);
+        myChart1.addCategoryAxis("x", "ticks");
+        myChart1.addMeasureAxis("y", "data");
+        myChart1.addSeries(null, dimple.plot.line);
+        myChart1.draw();
+		function generateGraph1(data,i){
+		var temp={
+		data:Number(data),
+		ticks:i.toString()
+		};
+		format.push(temp);
+		console.log(format);
+		myChart1.data=format;
+		myChart1.draw();
+		}
+/*Dimple Ends*/
+  var i=1;
+  var socket = io.connect('http://localhost:3000');
+  socket.on('news', function (data) {
+    console.log(data);
+    document.getElementById("result").innerHTML=data;
+    $(document).ready(function(){
+    	generateGraph(data,i);
+    	generateGraph1(data,i);
+    	i++;
+    });
+  });
+</script>

@@ -1,0 +1,14 @@
+{
+  "name": "IOT",
+  "version": "1.0.0",
+  "description": "An example module to illustrate the usage of a package.json",
+  "author": "Your Name <you.name@example.org>",
+  "contributors": [{
+  "name": "Foo Bar",
+  "email": "foo.bar@example.com"}],
+  "dependencies": {
+    "express": "4.2.x",
+    "serialport":"*",
+    "socket.io":"*"
+  }
+}
